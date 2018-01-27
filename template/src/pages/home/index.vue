@@ -66,7 +66,7 @@ export default {
           this.msg = res.data.data
         }
       })
-      {/if_eq}}
+      {{/if_eq}}
     }
     {{/vuex}}
   },

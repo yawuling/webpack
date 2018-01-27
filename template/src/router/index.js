@@ -10,6 +10,10 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+      // if you want to set the page keep-alive, use the config:
+      // meta: {
+      //   keepAlive: true
+      // }
     }
   ]
 })

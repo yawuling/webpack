@@ -51,8 +51,8 @@ Vue.prototype.$http = axios
 Vue.prototype.$jsonp = fetchJsonp
 {{/if_eq}}
 {{#if_eq requestNpm "two"}}
-axios.prototype.jsonp = fetchJsonp
 Vue.prototype.$http = axios
+Vue.prototype.$jsonp = fetchJsonp
 {{/if_eq}}
 
 /* eslint-disable no-new */

@@ -48,8 +48,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 {{/if_eq}}
 {{#if_eq requestNpm "jsonp"}}
-Vue.prototype.$http = {}
-Vue.prototype.$http.jsonp = fetchJsonp
+Vue.prototype.$jsonp = fetchJsonp
 {{/if_eq}}
 {{#if_eq requestNpm "two"}}
 axios.prototype.jsonp = fetchJsonp

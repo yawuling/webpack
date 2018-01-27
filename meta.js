@@ -79,6 +79,26 @@ module.exports = {
       type: 'confirm',
       message: 'Is a mobile project?'
     },
+    requestNpm: {
+      when: 'isNotTest',
+      type: 'list',
+      message: 'select the method of request',
+      choices: [
+        {
+          name: 'axios',
+          value: 'axios',
+          short: 'axios'
+        }, {
+          name: 'jsonp',
+          value: 'jsonp',
+          short: 'jsonp'
+        }, {
+          name: 'axios + jsonp',
+          value: 'two',
+          short: 'two'
+        }
+      ]
+    },
     keepAlivePage: {
       when: 'isNotTest',
       type: 'confirm',
@@ -87,7 +107,7 @@ module.exports = {
     preCss: {
       when: 'isNotTest',
       type: 'list',
-      message: 'Use a CSS preprocessor?',
+      message: 'Select a CSS preprocessor?',
       choices: [
         {
           name: 'Less',
@@ -106,8 +126,13 @@ module.exports = {
         }
       ]
     },
-    lint: {
+    otherConfig: {
       when: 'isNotTest',
+      type: 'confirm',
+      message: 'select other config(lint, test)'
+    },
+    lint: {
+      when: 'isNotTest && otherConfig',
       type: 'confirm',
       message: 'Use ESLint to lint your code?',
     },
@@ -134,7 +159,7 @@ module.exports = {
       ],
     },
     unit: {
-      when: 'isNotTest',
+      when: 'isNotTest && otherConfig',
       type: 'confirm',
       message: 'Set up unit tests',
     },
@@ -161,7 +186,7 @@ module.exports = {
       ],
     },
     e2e: {
-      when: 'isNotTest',
+      when: 'isNotTest && otherConfig',
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },

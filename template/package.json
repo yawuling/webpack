@@ -25,7 +25,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    {{#if_eq requestNpm "axios"}}
     "axios": "^0.17.1",
+    {{/if_eq}}
+    {{#if_eq requestNpm "jsonp"}}
+    "fetch-jsonp": "^1.1.3",
+    {{/if_eq}}
+    {{#if_eq requestNpm "two"}}
+    "axios": "^0.17.1",
+    "fetch-jsonp": "^1.1.3",
+    {{/if_eq}}
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"{{#vuex}},
     "vuex": "^3.0.1"

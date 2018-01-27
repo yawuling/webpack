@@ -64,8 +64,25 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         let mockFile = path.join(__dirname, '../mock/', paramsName)
         let result = JSON.parse(fs.readFileSync(mockFile))
 
-        res.json(result)
+        {{#if_eq requestNpm "axios"}}
+        res.json(result)          
+        {{/if_eq}}
+        {{#if_eq requestNpm "jsonp"}}
+        if (req.query.callback) {
+          res.jsonp(result)
+        } else {
+          res.json(result)          
+        }
+        {{/if_eq}}
+        {{#if_eq requestNpm "two"}}
+        if (req.query.callback) {
+          res.jsonp(result)
+        } else {
+          res.json(result)          
+        }
+        {{/if_eq}}
       })
+      {{#if_eq requestNpm "axios"}}
       app.post('/api/*', (req, res) => {
         let paramsName = req.params[0]
         if (paramsName.includes('.')) {
@@ -77,6 +94,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
         res.json(result)
       })
+      {{/if_eq}}
+      {{#if_eq requestNpm "two"}}
+      app.post('/api/*', (req, res) => {
+        let paramsName = req.params[0]
+        if (paramsName.includes('.')) {
+          paramsName = paramsName.split('.')[0]
+        }
+        paramsName += '.json'
+        let mockFile = path.join(__dirname, '../mock/', paramsName)
+        let result = JSON.parse(fs.readFileSync(mockFile))
+
+        res.json(result)
+      })
+      {{/if_eq}}
       // get mock Image, path: '/mock/img/example.jpg'
       app.get('/mock/img/:name', (req, res) => {
         let fileName = req.params.name
@@ -85,8 +116,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           root: path.join(__dirname, '../mock/img/'),
           dotfiles: 'deny',
           headers: {
-              'x-timestamp': Date.now(),
-              'x-sent': true
+            'x-timestamp': Date.now(),
+            'x-sent': true
           }
         }
 

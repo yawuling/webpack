@@ -50,6 +50,8 @@ The development server will run on port 8080 by default. If that port is already
 
 - judge if the project is a mobile project
 
+- select to use axios, jsonp, or axios + jsonp
+
 - select to use less, scss or css
 
 - select to use keep-alive page

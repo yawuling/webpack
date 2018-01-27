@@ -3,6 +3,9 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const REQUEST_HOST = require('../src/config').REQUEST_HOST
+
+const API_PATH = REQUEST_HOST.replace(/^[http|https]:\/\/.*(\/)/, '$1')
 
 module.exports = {
   dev: {
@@ -10,7 +13,23 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // +++ set the proxy config
+      '/api': {
+        target: 'http://example.com',
+        changeOrigin: true,
+        // rewrite the path, if you use nginx to do the proxy, you should also rewrite the path.Well, you can change
+        // this config by yourself.
+        pathRewrite: {
+          '^/api': ''
+        }
+        // if the request requires cookie, use the config: 
+        // onProxyReq: function(proxyReq, req, res) {
+        //   proxyReq.setHeader('cookie', 'the cookie you want')
+        // }
+      }
+    },
+    isProxy: false,    // if you want to do the request proxy, you should set this config 'true'
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

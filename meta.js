@@ -69,10 +69,32 @@ module.exports = {
         },
       ],
     },
-    router: {
+    keepAlivePage: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Install vue-router?',
+      message: 'Use keep-alive page?'
+    },
+    preCss: {
+      when: 'isNotTest',
+      type: 'list',
+      message: 'Use a CSS preprocessor?',
+      choices: [
+        {
+          name: 'Less',
+          value: 'less',
+          short: 'Less'
+        },
+        {
+          name: 'Sass',
+          value: 'sass',
+          short: 'Sass'
+        },
+        {
+          name: 'none',
+          value: 'none',
+          short: 'none'
+        }
+      ]
     },
     lint: {
       when: 'isNotTest',
@@ -169,7 +191,6 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
-    'src/router/**/*': 'router',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

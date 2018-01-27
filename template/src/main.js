@@ -5,13 +5,17 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+{{#vuex}}
+import store from './store'
+{{/vuex}}
 import axios from 'axios'
 import { REQUEST_HOST } from './config'
+{{#isMobile}}
+import './utils/flexible'
+{{/isMobile}}
 
 Vue.config.productionTip = false
 
-// set the request's common path
-axios.defaults.baseUrl = REQUEST_HOST
 /* if a POST request's header requires 'application/x-www-form-urlencoded',
  * use this config: axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded', and
  * you should use the npm package -- qs.
@@ -19,13 +23,15 @@ axios.defaults.baseUrl = REQUEST_HOST
  * if you want to intercept the request or response to do something when the project send a request or
  *  get the response from server, please use axios's Interceptors.
  */
+Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  {{#router}}
   router,
-  {{/router}}
+  {{#vuex}}
+  store,
+  {{/vuex}}
   {{#if_eq build "runtime"}}
   render: h => h(App)
   {{/if_eq}}

@@ -3,35 +3,58 @@
     {{#keepAlivePage}}
     <p>This page uses 'keep-alive' tag.It can save it's state when you jump to other page.</p>
     {{/keepAlivePage}}
-    <img :src="mockData.logo">    
-    <p>{{ mockData.message }}</p>
+    <img :src="msg.logo">    
+    <p>{{ msg.message }}</p>
     <hello-world />
   </div>
 </template>
 
 <script>
+{{#vuex}}
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions } = createNamespacedHelpers('home')
+{{else}}
 import api from '../../api'
+{{/vuex}}
 import HelloWorld from '../../components/HelloWorld'
+
 
 const REQUEST_SUCCESS = 1
 
 export default {
+  {{#vuex}}
+  computed: {
+    ...mapState([
+      'msg'
+    ])
+  },
+  {{else}}
   data() {
     return {
-      mockData: {}
+      msg: {}
     }
   },
+  {{/vuex}}  
   components: {
     HelloWorld
   },
   methods: {
-    getMockData() {
-      this.$http.get(api.home.example).then(res => {
+    {{#vuex}}
+    ...mapActions([
+      'getMsg'
+    ])
+    {{else}}
+    getMsg() {
+      return this.$http.get(api.home.example).then(res => {
         if (res.data.code === REQUEST_SUCCESS) {
-          this.mockData = res.data.data
+          this.msg = res.data.data
         }
       })
     }
+    {{/vuex}}
+  },
+  created() {
+    this.getMsg()
   }
 }
 </script>

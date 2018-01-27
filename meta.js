@@ -69,6 +69,16 @@ module.exports = {
         },
       ],
     },
+    vuex: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Use vuex?'
+    },
+    isMobile: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Is a mobile project?'
+    },
     keepAlivePage: {
       when: 'isNotTest',
       type: 'confirm',
@@ -85,9 +95,9 @@ module.exports = {
           short: 'Less'
         },
         {
-          name: 'Sass',
-          value: 'sass',
-          short: 'Sass'
+          name: 'Scss',
+          value: 'scss',
+          short: 'Scss'
         },
         {
           name: 'none',
@@ -191,6 +201,10 @@ module.exports = {
     'test/unit/specs/index.js': "unit && runner === 'karma'",
     'test/unit/setup.js': "unit && runner === 'jest'",
     'test/e2e/**/*': 'e2e',
+    'src/utils/**/*': "isMobile",
+    'src/assets/css/variable.less': "isMobile && preCss === 'less'",
+    'src/assets/css/variable.scss': "isMobile && preCss === 'scss'",
+    'src/store/**/*': 'vuex'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

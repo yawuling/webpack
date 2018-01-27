@@ -3,9 +3,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-const REQUEST_HOST = require('../src/config').REQUEST_HOST
-
-const API_PATH = REQUEST_HOST.replace(/^[http|https]:\/\/.*(\/)/, '$1')
 
 module.exports = {
   dev: {

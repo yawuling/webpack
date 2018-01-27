@@ -46,12 +46,16 @@ The development server will run on port 8080 by default. If that port is already
 
 - use the vue-router default
 
-- users can select to use less, sass or css
+- select to use vuex
+
+- judge if the project is a mobile project
+
+- select to use less, scss or css
+
+- select to use keep-alive page
 
 - use a standard api config
 
 - set the mock config
 
 - set the proxy config
-
-- select to use keep-alive page

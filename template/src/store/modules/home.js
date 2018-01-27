@@ -43,9 +43,11 @@ export default {
       {{/if_eq}}
       {{#if_eq requestNpm "jsonp"}}
       return fetchJsonp(api.home.example).then(res => {
-        if (res.data.code === REQUEST_SUCCESS) {
+        return res.json()
+      }).then(res => {
+        if (res.code === REQUEST_SUCCESS) {
           commit('setMsg', {
-            msg: res.data.data
+            msg: res.data
           })
         }
       })

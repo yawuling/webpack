@@ -137,7 +137,7 @@ module.exports = {
       message: 'Use ESLint to lint your code?',
     },
     lintConfig: {
-      when: 'isNotTest && lint',
+      when: 'isNotTest && otherConfig && lint',
       type: 'list',
       message: 'Pick an ESLint preset',
       choices: [
@@ -164,7 +164,7 @@ module.exports = {
       message: 'Set up unit tests',
     },
     runner: {
-      when: 'isNotTest && unit',
+      when: 'isNotTest && otherConfig && unit',
       type: 'list',
       message: 'Pick a test runner',
       choices: [

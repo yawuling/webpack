@@ -129,7 +129,7 @@ module.exports = {
     otherConfig: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'select other config(lint, test)'
+      message: 'select other config ? (lint, test)'
     },
     lint: {
       when: 'isNotTest && otherConfig',

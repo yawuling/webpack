@@ -9,7 +9,6 @@ import router from './router'
 import store from './store'
 {{/vuex}}
 import axios from 'axios'
-import { REQUEST_HOST } from './config'
 {{#isMobile}}
 import './utils/flexible'
 {{/isMobile}}

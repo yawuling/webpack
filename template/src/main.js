@@ -24,7 +24,7 @@ import './utils/flexible'
 
 Vue.config.productionTip = false
 
-{{#if_eq requestNum "axios"}}
+{{#if_eq requestNpm "axios"}}
 /* if a POST request's header requires 'application/x-www-form-urlencoded',
  * use this config: axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded', and
  * you should use the npm package -- qs.
@@ -34,7 +34,7 @@ Vue.config.productionTip = false
  * 
  */
 {{/if_eq}}
-{{#if_eq requestNum "two"}}
+{{#if_eq requestNpm "two"}}
 /* if a POST request's header requires 'application/x-www-form-urlencoded',
  * use this config: axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded', and
  * you should use the npm package -- qs.

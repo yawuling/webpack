@@ -10,9 +10,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
-// +++   use fs to open files
-const fs = require('fs')
-
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
@@ -46,86 +43,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    // +++  set the mock api's response config
-    before(app) {
-
-      // if the server is running for test the online api, we should close the mock resposne
-      if (config.dev.isProxy) {
-        return
-      }
-
-      // if you change the REQUEST_HOST in /src/config/index.js, you should change this config
-      app.get('/api/*', (req, res) => {
-        let paramsName = req.params[0]
-        if (paramsName.includes('.')) {
-          paramsName = paramsName.split('.')[0]
-        }
-        paramsName += '.json'
-        let mockFile = path.join(__dirname, '../mock/', paramsName)
-        let result = JSON.parse(fs.readFileSync(mockFile))
-
-        {{#if_eq requestNpm "axios"}}
-        res.json(result)          
-        {{/if_eq}}
-        {{#if_eq requestNpm "jsonp"}}
-        if (req.query.callback) {
-          res.jsonp(result)
-        } else {
-          res.json(result)          
-        }
-        {{/if_eq}}
-        {{#if_eq requestNpm "two"}}
-        if (req.query.callback) {
-          res.jsonp(result)
-        } else {
-          res.json(result)          
-        }
-        {{/if_eq}}
-      })
-      {{#if_eq requestNpm "axios"}}
-      app.post('/api/*', (req, res) => {
-        let paramsName = req.params[0]
-        if (paramsName.includes('.')) {
-          paramsName = paramsName.split('.')[0]
-        }
-        paramsName += '.json'
-        let mockFile = path.join(__dirname, '../mock/', paramsName)
-        let result = JSON.parse(fs.readFileSync(mockFile))
-
-        res.json(result)
-      })
-      {{/if_eq}}
-      {{#if_eq requestNpm "two"}}
-      app.post('/api/*', (req, res) => {
-        let paramsName = req.params[0]
-        if (paramsName.includes('.')) {
-          paramsName = paramsName.split('.')[0]
-        }
-        paramsName += '.json'
-        let mockFile = path.join(__dirname, '../mock/', paramsName)
-        let result = JSON.parse(fs.readFileSync(mockFile))
-
-        res.json(result)
-      })
-      {{/if_eq}}
-      // get mock Image, path: '/mock/img/example.jpg'
-      app.get('/mock/img/:name', (req, res) => {
-        let fileName = req.params.name
-
-        var options = {
-          root: path.join(__dirname, '../mock/img/'),
-          dotfiles: 'deny',
-          headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-          }
-        }
-
-        res.sendFile(fileName, options)
-      })
-
-      // well, you can also set the response for some request, or use mockJS
-    }
+    before: config.dev.before
   },
   plugins: [
     new webpack.DefinePlugin({

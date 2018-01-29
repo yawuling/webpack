@@ -1,12 +1,3 @@
-{{#if_eq requestNpm "axios"}}
-import axios from 'axios'
-{{/if_eq}}
-{{#if_eq requestNpm "jsonp"}}
-import fetchJsonp from 'fetch-jsonp'
-{{/if_eq}}
-{{#if_eq requestNpm "two"}}
-import axios from 'axios'
-{{/if_eq}}
 import api from '../../api'
 
 const REQUEST_SUCCESS = 1

@@ -45,14 +45,14 @@ export default {
     {{else}}
     getMsg() {
       {{#if_eq requestNpm "axios"}}
-      return this.$http.get(api.home.example).then(res => {
+      return axios.get(api.home.example).then(res => {
         if (res.data.code === REQUEST_SUCCESS) {
           this.msg = res.data.data
         }
       })
       {{/if_eq}}
       {{#if_eq requestNpm "jsonp"}}
-      return this.$jsonp(api.home.example).then(res => {
+      return fetchJsonp(api.home.example).then(res => {
         return res.json()
       }).then(res => {
         if (res.code === REQUEST_SUCCESS) {
@@ -61,7 +61,7 @@ export default {
       })
       {{/if_eq}}
       {{#if_eq requestNpm "two"}}
-      return this.$http.get(api.home.example).then(res => {
+      return axios.get(api.home.example).then(res => {
         if (res.data.code === REQUEST_SUCCESS) {
           this.msg = res.data.data
         }

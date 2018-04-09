@@ -226,7 +226,8 @@ module.exports = {
     'test/unit/specs/index.js': "otherConfig && unit && runner === 'karma'",
     'test/unit/setup.js': "otherConfig && unit && runner === 'jest'",
     'test/e2e/**/*': 'otherConfig && e2e',
-    'src/utils/**/*': "isMobile",
+    'src/utils/flexible.js': "isMobile",
+    'src/utils/axiosAdapter.js': "requestNpm === 'axios' || requestNpm === 'two'",
     'src/assets/css/variable.less': "isMobile && preCss === 'less'",
     'src/assets/css/variable.scss': "isMobile && preCss === 'scss'",
     'src/store/**/*': 'vuex'

@@ -19,7 +19,7 @@ import axios from 'axios'
 import fetchJsonp from 'fetch-jsonp'
 {{/if_eq}}
 {{#if_eq requestNpm "two"}}
-import axios from 'axios'
+import axios from '@/utils/axiosAdapter.js'
 import fetchJsonp from 'fetch-jsonp'
 {{/if_eq}}
 {{#isMobile}}
